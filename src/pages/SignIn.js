@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 
@@ -17,7 +18,9 @@ const SignIn = () => {
           </div>
           <div className="inline-flex mt-[15px]">
             <h2 className="text-[10px] font-poppins font-medium">Don't have an account?</h2>
-            <h2 className="text-[10px] font-poppins font-medium text-[#FF0000] underline">Sign up</h2>
+            <Link to="/signup">
+              <h2 className="text-[10px] font-poppins font-medium text-[#FF0000] underline cursor-pointer">Sign up</h2>
+            </Link>
           </div>
         </div>
       </div>
