@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Button from "../components/Button";
 import Footer from "../components/Footer";
 import Input from "../components/Input";
@@ -64,7 +65,9 @@ const Registration = () => {
           </div>
           <UploadPhoto onChange={(e) => uploadImage(e)}/>
           <div className="mt-[26px]"></div>
-          <Button title="Continue" />
+          <Link to='/approval'>
+            <Button title="Continue" />
+          </Link>
         </div>
       </div>
       <Footer />
