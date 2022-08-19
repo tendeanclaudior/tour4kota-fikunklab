@@ -10,6 +10,28 @@ const Registration = () => {
   const [lokasi, setLokasi] = useState("");
   const [sosmed, setSosmed] = useState("");
   const [pesan, setPesan] = useState("");
+  const [baseImage, setBaseImage] = useState("");
+
+  const uploadImage = async (e) => {
+    const file = e.target.files[0]
+    const base64 = await convertBase64(file);
+    setBaseImage(base64)
+    console.log("base64", base64)
+  }
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) =>{
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file)
+
+      fileReader.onload = () => {
+        resolve(fileReader.result)
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      }
+    })
+  }
 
   return (
     <div className="flex items-center pt-[16px] flex-col">
@@ -40,7 +62,7 @@ const Registration = () => {
           <div className="w-full pl-[43px] mt-[7px]">
             <p className="font-poppins font-medium mb-1 text-black text-[8px]">Upload Photo</p>
           </div>
-          <UploadPhoto />
+          <UploadPhoto onChange={(e) => uploadImage(e)}/>
           <div className="mt-[26px]"></div>
           <Button title="Continue" />
         </div>
