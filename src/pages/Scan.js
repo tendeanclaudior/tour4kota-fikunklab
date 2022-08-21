@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { QrReader } from 'react-qr-reader'
+import { useNavigate } from 'react-router-dom'
 
 const Scan = () => {
+    const navigate = useNavigate()
     const [data, setData] = useState("-")
   return (
     <div className='flex items-center flex-col pt-[130px]'>
@@ -12,6 +14,9 @@ const Scan = () => {
             onResult={(result, error) => {
             if (!!result) {
                 setData(result?.text);
+                if(result?.text === "PT KTP FIK UNKLAB TOUR4KOTA BAND JARANKPULANG"){
+                    navigate('/lastpage')
+                }
             }
 
             if (!!error) {

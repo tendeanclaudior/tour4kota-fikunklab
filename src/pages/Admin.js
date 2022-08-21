@@ -12,7 +12,44 @@ const Admin = () => {
   const [jumlah, setJumlah] = useState(0);
 
   const getValues = () => {
-    const dbRef = ref(db, "users");
+    let dbRef = ref(db, "users/Gorontalo");
+    onValue(dbRef, (snapshot) => {
+      let records = [];
+      snapshot.forEach((childSnapshot) => {
+        let keyName = childSnapshot.key;
+        let isData = childSnapshot.val();
+        records.push({ key: keyName, data: isData });
+      });
+      setData({ tableData: records });
+      setJumlah(records.length);
+    });
+
+    dbRef = ref(db, "users/Kotamobagu");
+    onValue(dbRef, (snapshot) => {
+      let records = [];
+      snapshot.forEach((childSnapshot) => {
+        let keyName = childSnapshot.key;
+        let isData = childSnapshot.val();
+        records.push({ key: keyName, data: isData });
+      });
+      setData({ tableData: records });
+      setJumlah(records.length);
+    });
+
+    dbRef = ref(db, "users/Bitung");
+
+    onValue(dbRef, (snapshot) => {
+      let records = [];
+      snapshot.forEach((childSnapshot) => {
+        let keyName = childSnapshot.key;
+        let isData = childSnapshot.val();
+        records.push({ key: keyName, data: isData });
+      });
+      setData({ tableData: records });
+      setJumlah(records.length);
+    });
+
+    dbRef = ref(db, "users/Manado");
 
     onValue(dbRef, (snapshot) => {
       let records = [];

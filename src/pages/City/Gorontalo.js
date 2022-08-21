@@ -1,7 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
+import { onValue, ref, update } from "firebase/database";
+import { db, auth } from "../../firebase";
 
 const Gorontalo = () => {
+  let [status, setStatus] = useState("Approved")
+  const klik = () => {
+    setStatus("Done");
+    update(ref(db, `users/Gorontalo/${auth.currentUser.uid}`), {
+      approval: "true",
+    });
+  }
+
+  const [data, setData] = useState({
+    tableData: [],
+  });
+
+  const getValues = () => {
+    let dbRef = ref(db, "users/Gorontalo");
+    onValue(dbRef, (snapshot) => {
+      let records = [];
+      snapshot.forEach((childSnapshot) => {
+        let keyName = childSnapshot.key;
+        let isData = childSnapshot.val();
+        records.push({ key: keyName, data: isData });
+      });
+      setData({ tableData: records });
+    });
+  };
+
+  useEffect(() => {
+    getValues();
+  }, []);
+    
+
   return (
     <>
       <Navbar />
@@ -29,19 +61,23 @@ const Gorontalo = () => {
             </tr>
           </thead>
           <tbody className="text-black text-center">
-            <tr className="bg-white cursor-pointer border-b-2 border-gray-300">
-              <td className="py-3 px-6 border-r-2">no</td>
-              <td className="py-3 px-6">
-                <img className="w-[50px] h-[50px] mx-auto rounded-full hover:scale-150" src={""} alt="/" />
-              </td>
-              <td className="py-3 px-6">nama</td>
-              <td className="py-3 px-6">wa</td>
-              <td className="py-3 px-6">medsos</td>
-              <td className="py-3 px-6">kota</td>
-              <td className="py-3 px-6">
-                <button className="bg-green-400 hover:bg-green-200 px-2 py-2 mr-3 rounded-xl font-semibold uppercase">approv</button>
-              </td>
-            </tr>
+            {data.tableData.map((item, index) => {
+              return (
+                <tr key={item} className="bg-white cursor-pointer border-b-2 border-gray-300">
+                  <td className="py-3 px-6 border-r-2">{index + 1}</td>
+                  <td className="py-3 px-6">
+                    <img className="w-[50px] h-[50px] mx-auto rounded-full hover:scale-150" src={item.data.foto} alt="/" />
+                  </td>
+                  <td className="py-3 px-6">{item.data.nama}</td>
+                  <td className="py-3 px-6">{item.data.noWA}</td>
+                  <td className="py-3 px-6">{item.data.sosmed}</td>
+                  <td className="py-3 px-6">{item.data.lokasi}</td>
+                  <td className="py-3 px-6">
+                    <button onClick={klik} className="bg-green-400 hover:bg-green-200 px-2 py-2 mr-3 rounded-xl font-semibold uppercase">{status}</button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

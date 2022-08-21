@@ -73,11 +73,11 @@ const Registration = () => {
       status = false;
     }
 
-    if (a === 0) {
+    if(lokasi === "Manado") {
       status = true;
       console.log("status", status);
       e.preventDefault();
-      update(ref(db, `users/${auth.currentUser.uid}`), {
+      update(ref(db, `users/Manado/${auth.currentUser.uid}`), {
         nama: name,
         noWA: wa,
         lokasi: lokasi,
@@ -85,6 +85,55 @@ const Registration = () => {
         pesan: pesan,
         foto: baseImage,
         doneRegis: "true",
+        approval: "false",
+      });
+      navigate("/approval");
+    }
+    if(lokasi === "Kotamobagu") {
+      status = true;
+      console.log("status", status);
+      e.preventDefault();
+      update(ref(db, `users/Kotamobagu/${auth.currentUser.uid}`), {
+        nama: name,
+        noWA: wa,
+        lokasi: lokasi,
+        sosmed: sosmed,
+        pesan: pesan,
+        foto: baseImage,
+        doneRegis: "true",
+        approval: "false",
+      });
+      navigate("/approval");
+    }
+    if(lokasi === "Gorontalo") {
+      status = true;
+      console.log("status", status);
+      e.preventDefault();
+      update(ref(db, `users/Gorontalo/${auth.currentUser.uid}`), {
+        nama: name,
+        noWA: wa,
+        lokasi: lokasi,
+        sosmed: sosmed,
+        pesan: pesan,
+        foto: baseImage,
+        doneRegis: "true",
+        approval: "false",
+      });
+      navigate("/approval");
+    }
+    if(lokasi === "Bitung") {
+      status = true;
+      console.log("status", status);
+      e.preventDefault();
+      update(ref(db, `users/Bitung/${auth.currentUser.uid}`), {
+        nama: name,
+        noWA: wa,
+        lokasi: lokasi,
+        sosmed: sosmed,
+        pesan: pesan,
+        foto: baseImage,
+        doneRegis: "true",
+        approval: "false",
       });
       navigate("/approval");
     }
@@ -95,9 +144,38 @@ const Registration = () => {
     try {
       const database = getDatabase();
       const rootReference = ref(database);
-      const dbGet = await get(child(rootReference, `users/${auth.currentUser.uid}/doneRegis`));
-      const dbValue = dbGet.val();
+      const dbGet = await get(child(rootReference, `users/Manado/${auth.currentUser.uid}/doneRegis`));
+      let dbValue = dbGet.val();
+      console.log("test1:", dbValue);
+      if (dbValue) {
+        navigate("/approval");
+      }
+      if(dbValue != true){
+        const dbGet = await get(child(rootReference, `users/Kotamobagu/${auth.currentUser.uid}/doneRegis`));
+        dbValue = dbGet.val();
+        console.log("test2:", dbValue);
+        if (dbValue) {
+          navigate("/approval");
+        }
+      }
+      if(dbValue != true){
+        const dbGet = await get(child(rootReference, `users/Bitung/${auth.currentUser.uid}/doneRegis`));
+        dbValue = dbGet.val();
+        console.log("test3:", dbValue);
+        if (dbValue) {
+          navigate("/approval");
+        }
+      }
+      if(dbValue != true){
+        const dbGet = await get(child(rootReference, `users/Gorontalo/${auth.currentUser.uid}/doneRegis`));
+        dbValue = dbGet.val();
+        console.log("test4:", dbValue);
+        if (dbValue) {
+          navigate("/approval");
+        }
+      }
       console.log("test", dbValue);
+      console.log("uid :", auth.currentUser.uid)
       if (dbValue) {
         navigate("/approval");
       }
@@ -120,10 +198,18 @@ const Registration = () => {
           <h1 className="font-poppins font-semibold text-[#4B4C51] text-[8px]">Contact details</h1>
           <h2 className="font-poppins font-regular text-[#FF0000] text-[6px] mt-[8px]">informasi yang diberikan dapat membantu kami!</h2>
           <div className="w-[150px] border-b-[1px] border-[#4B4C51] mt-1 mb-[15px]" />
-          <Input name={"name"} title={"Nama"} placeholder={"Tulis nama anda"} value={name} onChange={(e) => setName(e.target.value)} />
-          {errorInput && name.length <= 0 ? <ErrorMassage /> : ""}
-          <Input name={"wa"} title={"No. Wa"} placeholder={"Tulis nomor anda"} value={wa} onChange={(e) => setWa(e.target.value)} />
-          {errorInput && wa.length <= 0 ? <ErrorMassage /> : ""}
+          <div className="flex">
+            <Input name={"name"} title={"Nama"} placeholder={"Tulis nama anda"} value={name} onChange={(e) => setName(e.target.value)} />
+            <div className="absolute ml-[140px] mt-[15px]">
+              {errorInput && name.length <= 0 ? <ErrorMassage /> : ""}
+            </div>
+          </div>
+          <div className="flex">
+            <Input name={"wa"} title={"No. WA"} placeholder={"Tulis nomor anda"} value={wa} onChange={(e) => setWa(e.target.value)} />
+            <div className="absolute ml-[140px] mt-[15px]">
+              {errorInput && wa.length <= 0 ? <ErrorMassage /> : ""}
+            </div>
+          </div>
           <div className="mt-2">
             <span className="block font-poppins font-medium mb-1 text-black text-[8px]">Lokasi Event</span>
             <form className="flex flex-col">
@@ -135,12 +221,22 @@ const Registration = () => {
                 <option>Gorontalo</option>
               </select>
             </form>
-            {errorInput && lokasi.length <= 0 ? <ErrorMassage /> : ""}
+            <div className="absolute ml-[140px] mt-[-25px]">
+              {errorInput && lokasi.length <= 0 ? <ErrorMassage /> : ""}
+            </div>
           </div>
-          <Input name={"sosmed"} title={"Nama Social Media FB/IG"} placeholder={"Tulis nama sosmed anda"} value={sosmed} onChange={(e) => setSosmed(e.target.value)} />
-          {errorInput && sosmed.length <= 0 ? <ErrorMassage /> : ""}
-          <Input name={"pesan"} title={"Pesan untuk Band JarankPulang"} placeholder={"Tulis pesan anda"} value={pesan} onChange={(e) => setPesan(e.target.value)} />
-          {errorInput && pesan.length <= 0 ? <ErrorMassage /> : ""}
+          <div className="flex">
+            <Input name={"sosmed"} title={"Nama Social Media FB/IG"} placeholder={"Tulis nama sosmed anda"} value={sosmed} onChange={(e) => setSosmed(e.target.value)} />
+            <div className="absolute ml-[140px] mt-[15px]">
+                {errorInput && sosmed.length <= 0 ? <ErrorMassage /> : ""}
+            </div>
+          </div>
+          <div className="flex">
+            <Input name={"pesan"} title={"Pesan untuk Band JarankPulang"} placeholder={"Tulis pesan anda"} value={pesan} onChange={(e) => setPesan(e.target.value)} />
+            <div className="absolute ml-[140px] mt-[15px]">
+                {errorInput && pesan.length <= 0 ? <ErrorMassage /> : ""}
+            </div>
+          </div>
           <div className="w-full pl-[43px] mt-[7px]">
             <p className="font-poppins font-medium mb-1 text-black text-[8px]">Upload Photo</p>
           </div>

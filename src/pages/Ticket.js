@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import Scan from "../assets/logo/scan.png";
 import { child, get, getDatabase, ref } from "firebase/database";
 import { auth } from "../firebase";
+import { Link } from "react-router-dom";
 
 const Approval = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,9 +15,26 @@ const Approval = () => {
     try {
       const database = getDatabase();
       const rootReference = ref(database);
-      const dbGet = await get(child(rootReference, `users/${auth.currentUser.uid}`));
-      const dbValue = dbGet.val();
-      console.log("test", dbValue);
+      const dbGet = await get(child(rootReference, `users/Kotamobagu/${auth.currentUser.uid}`));
+      let dbValue = dbGet.val();
+      console.log("test:", dbValue)
+      
+      if(dbValue == null){
+        const dbGet = await get(child(rootReference, `users/Manado/${auth.currentUser.uid}`));
+        dbValue = dbGet.val();
+        console.log("test2:", dbValue);
+      }
+      if(dbValue == null){
+        const dbGet = await get(child(rootReference, `users/Bitung/${auth.currentUser.uid}`));
+        dbValue = dbGet.val();
+        console.log("test2:", dbValue);
+      }
+      if(dbValue == null){
+        const dbGet = await get(child(rootReference, `users/Gorontalo/${auth.currentUser.uid}`));
+        dbValue = dbGet.val();
+        console.log("test2:", dbValue);
+      }
+
       snaphsot.current = dbValue;
     } catch (getError) {
       error.current = getError.message;
@@ -38,10 +56,10 @@ const Approval = () => {
 
   const users = snaphsot.current;
   const data = Object.values(users);
-  const baseImage = data[1];
-  const nama = data[3];
-  const lokasi = data[2];
-  const wa = data[4];
+  const baseImage = data[2];
+  const nama = data[4];
+  const lokasi = data[3];
+  const wa = data[5];
 
   console.log({ users, data });
 
@@ -49,9 +67,9 @@ const Approval = () => {
     <div>
       <div className="flex justify-center mb-[64px]">
         <div className="bg-gradient-to-b from-[#1B8D42] via-[#FF0000] to-[#FFDD00] p-[1px] mt-[129px] rounded-lg shadow-2xl">
-          <div className="flex w-[244px] h-[382px] bg-white border items-center flex-col rounded-lg relative">
+          <div className="flex w-[244px] h-[402px] bg-white border items-center flex-col rounded-lg relative">
             <h1 className="text-[14px] text-[#A61E22] mt-[20px] font-poppins font-semibold">Tiket Masuk</h1>
-            <img src={JarankPulang} alt="" className="w-[157px] h-[143px] mt-[20px] animate-bounce" />
+            <img src={JarankPulang} alt="" className="w-[157px] h-[143px] mt-[40px] animate-bounce" />
             <div className="w-full flex justify-between">
               <div className="w-auto ml-[28px] mt-[22px]">
                 <img src={baseImage} alt="" className="w-[34px] h-[34px] rounded-full flex-inline" />
@@ -68,7 +86,9 @@ const Approval = () => {
               </div>
             </div>
             <div className="flex w-full justify-end mt-[25px]">
-              <img src={Scan} alt="" className="w-[28px] h-[28px] mr-[16px] cursor-pointer animate-pulse" />
+              <Link to="/scan">
+                <img src={Scan} alt="" className="w-[28px] h-[28px] mr-[16px] cursor-pointer animate-pulse" />
+              </Link>
             </div>
           </div>
         </div>
