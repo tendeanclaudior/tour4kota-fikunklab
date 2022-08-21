@@ -73,7 +73,7 @@ const Gorontalo = () => {
                   <td className="py-3 px-6">{item.data.sosmed}</td>
                   <td className="py-3 px-6">{item.data.lokasi}</td>
                   <td className="py-3 px-6">
-                    <button onClick={klik} className="bg-green-400 hover:bg-green-200 px-2 py-2 mr-3 rounded-xl font-semibold uppercase">{status}</button>
+                    <button onClick={klik} className="bg-green-400 hover:bg-green-200 px-2 py-2 mr-3 rounded-xl font-semibold uppercase">{item.data.approval}</button>
                   </td>
                 </tr>
               );
