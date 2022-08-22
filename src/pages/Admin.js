@@ -1,72 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
 
-import { onValue, ref } from "firebase/database";
-import { db } from "../firebase";
+import JarangPulang from "../assets/logo/jarankPulang.png";
 
 const Admin = () => {
-  const [data, setData] = useState({
-    tableData: [],
-  });
-
-  const [jumlah, setJumlah] = useState(0);
-
-  const getValues = () => {
-    let dbRef = ref(db, "users/Gorontalo");
-    onValue(dbRef, (snapshot) => {
-      let records = [];
-      snapshot.forEach((childSnapshot) => {
-        let keyName = childSnapshot.key;
-        let isData = childSnapshot.val();
-        records.push({ key: keyName, data: isData });
-      });
-      setData({ tableData: records });
-      setJumlah(records.length);
-    });
-
-    dbRef = ref(db, "users/Kotamobagu");
-    onValue(dbRef, (snapshot) => {
-      let records = [];
-      snapshot.forEach((childSnapshot) => {
-        let keyName = childSnapshot.key;
-        let isData = childSnapshot.val();
-        records.push({ key: keyName, data: isData });
-      });
-      setData({ tableData: records });
-      setJumlah(records.length);
-    });
-
-    dbRef = ref(db, "users/Bitung");
-
-    onValue(dbRef, (snapshot) => {
-      let records = [];
-      snapshot.forEach((childSnapshot) => {
-        let keyName = childSnapshot.key;
-        let isData = childSnapshot.val();
-        records.push({ key: keyName, data: isData });
-      });
-      setData({ tableData: records });
-      setJumlah(records.length);
-    });
-
-    dbRef = ref(db, "users/Manado");
-
-    onValue(dbRef, (snapshot) => {
-      let records = [];
-      snapshot.forEach((childSnapshot) => {
-        let keyName = childSnapshot.key;
-        let isData = childSnapshot.val();
-        records.push({ key: keyName, data: isData });
-      });
-      setData({ tableData: records });
-      setJumlah(records.length);
-    });
-  };
-
-  useEffect(() => {
-    getValues();
-  }, []);
-
   return (
     <>
       <Navbar />
@@ -78,41 +15,9 @@ const Admin = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl shadow-2xl shadow-black-200 w-[500px] h-[220px] mx-auto mt-[70px] pt-16">
-          <h1 className="text-2xl text-center uppercase font-semibold">Jumlah Pendaftar</h1>
-          <p className="text-4xl text-center text-blue-600">{jumlah}</p>
+        <div className="bg-white rounded-xl shadow-2xl shadow-black-200 w-[500px] h-[220px] mx-auto mt-[70px]">
+          <img src={JarangPulang} alt="/" />
         </div>
-      </div>
-
-      <div className="flex relative justify-center px-2 pt-20">
-        <table className="bg-white rounded-xl shadow-2xl w-[1242px]">
-          <thead className="text-black">
-            <tr className="text-gray-100">
-              <th className="py-3 bg-blue-500 text-2xl border-r-2 border-gray-300 rounded-tl-lg">No</th>
-              <th className="py-3 bg-blue-500 text-2xl">Foto</th>
-              <th className="py-3 bg-blue-500 text-2xl">Nama</th>
-              <th className="py-3 bg-blue-500 text-2xl">No. WA</th>
-              <th className="py-3 bg-blue-500 text-2xl">Medsos</th>
-              <th className="py-3 bg-blue-500 text-2xl">Lokasi Event</th>
-            </tr>
-          </thead>
-          <tbody className="text-black text-center">
-            {data.tableData.map((item, index) => {
-              return (
-                <tr key={item} className="bg-white cursor-pointer border-b-2 border-gray-300">
-                  <td className="py-3 px-6 border-r-2">{index + 1}</td>
-                  <td className="py-3 px-6">
-                    <img className="w-[50px] h-[50px] mx-auto rounded-full hover:scale-150" src={item.data.foto} alt="/" />
-                  </td>
-                  <td className="py-3 px-6">{item.data.nama}</td>
-                  <td className="py-3 px-6">{item.data.noWA}</td>
-                  <td className="py-3 px-6">{item.data.sosmed}</td>
-                  <td className="py-3 px-6">{item.data.lokasi}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
       </div>
       <div className="mb-[90px]"></div>
     </>

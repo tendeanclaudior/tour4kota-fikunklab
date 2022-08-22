@@ -72,8 +72,7 @@ const Registration = () => {
       a = 1;
       status = false;
     }
-
-    if(lokasi === "Manado") {
+    if (lokasi === "Manado") {
       status = true;
       console.log("status", status);
       e.preventDefault();
@@ -89,7 +88,7 @@ const Registration = () => {
       });
       navigate("/approval");
     }
-    if(lokasi === "Kotamobagu") {
+    if (lokasi === "Kotamobagu") {
       status = true;
       console.log("status", status);
       e.preventDefault();
@@ -105,7 +104,7 @@ const Registration = () => {
       });
       navigate("/approval");
     }
-    if(lokasi === "Gorontalo") {
+    if (lokasi === "Gorontalo") {
       status = true;
       console.log("status", status);
       e.preventDefault();
@@ -121,7 +120,7 @@ const Registration = () => {
       });
       navigate("/approval");
     }
-    if(lokasi === "Bitung") {
+    if (lokasi === "Bitung") {
       status = true;
       console.log("status", status);
       e.preventDefault();
@@ -150,7 +149,7 @@ const Registration = () => {
       if (dbValue) {
         navigate("/approval");
       }
-      if(dbValue != true){
+      if (dbValue != true) {
         const dbGet = await get(child(rootReference, `users/Kotamobagu/${auth.currentUser.uid}/doneRegis`));
         dbValue = dbGet.val();
         console.log("test2:", dbValue);
@@ -158,7 +157,7 @@ const Registration = () => {
           navigate("/approval");
         }
       }
-      if(dbValue != true){
+      if (dbValue != true) {
         const dbGet = await get(child(rootReference, `users/Bitung/${auth.currentUser.uid}/doneRegis`));
         dbValue = dbGet.val();
         console.log("test3:", dbValue);
@@ -166,7 +165,7 @@ const Registration = () => {
           navigate("/approval");
         }
       }
-      if(dbValue != true){
+      if (dbValue != true) {
         const dbGet = await get(child(rootReference, `users/Gorontalo/${auth.currentUser.uid}/doneRegis`));
         dbValue = dbGet.val();
         console.log("test4:", dbValue);
@@ -175,7 +174,7 @@ const Registration = () => {
         }
       }
       console.log("test", dbValue);
-      console.log("uid :", auth.currentUser.uid)
+      console.log("uid :", auth.currentUser.uid);
       if (dbValue) {
         navigate("/approval");
       }
@@ -200,15 +199,11 @@ const Registration = () => {
           <div className="w-[150px] border-b-[1px] border-[#4B4C51] mt-1 mb-[15px]" />
           <div className="flex">
             <Input name={"name"} title={"Nama"} placeholder={"Tulis nama anda"} value={name} onChange={(e) => setName(e.target.value)} />
-            <div className="absolute ml-[140px] mt-[15px]">
-              {errorInput && name.length <= 0 ? <ErrorMassage /> : ""}
-            </div>
+            <div className="absolute ml-[140px] mt-[15px]">{errorInput && name.length <= 0 ? <ErrorMassage /> : ""}</div>
           </div>
           <div className="flex">
             <Input name={"wa"} title={"No. WA"} placeholder={"Tulis nomor anda"} value={wa} onChange={(e) => setWa(e.target.value)} />
-            <div className="absolute ml-[140px] mt-[15px]">
-              {errorInput && wa.length <= 0 ? <ErrorMassage /> : ""}
-            </div>
+            <div className="absolute ml-[140px] mt-[15px]">{errorInput && wa.length <= 0 ? <ErrorMassage /> : ""}</div>
           </div>
           <div className="mt-2">
             <span className="block font-poppins font-medium mb-1 text-black text-[8px]">Lokasi Event</span>
@@ -221,21 +216,15 @@ const Registration = () => {
                 <option>Gorontalo</option>
               </select>
             </form>
-            <div className="absolute ml-[140px] mt-[-25px]">
-              {errorInput && lokasi.length <= 0 ? <ErrorMassage /> : ""}
-            </div>
+            <div className="absolute ml-[140px] mt-[-25px]">{errorInput && lokasi.length <= 0 ? <ErrorMassage /> : ""}</div>
           </div>
           <div className="flex">
             <Input name={"sosmed"} title={"Nama Social Media FB/IG"} placeholder={"Tulis nama sosmed anda"} value={sosmed} onChange={(e) => setSosmed(e.target.value)} />
-            <div className="absolute ml-[140px] mt-[15px]">
-                {errorInput && sosmed.length <= 0 ? <ErrorMassage /> : ""}
-            </div>
+            <div className="absolute ml-[140px] mt-[15px]">{errorInput && sosmed.length <= 0 ? <ErrorMassage /> : ""}</div>
           </div>
           <div className="flex">
             <Input name={"pesan"} title={"Pesan untuk Band JarankPulang"} placeholder={"Tulis pesan anda"} value={pesan} onChange={(e) => setPesan(e.target.value)} />
-            <div className="absolute ml-[140px] mt-[15px]">
-                {errorInput && pesan.length <= 0 ? <ErrorMassage /> : ""}
-            </div>
+            <div className="absolute ml-[140px] mt-[15px]">{errorInput && pesan.length <= 0 ? <ErrorMassage /> : ""}</div>
           </div>
           <div className="w-full pl-[43px] mt-[7px]">
             <p className="font-poppins font-medium mb-1 text-black text-[8px]">Upload Photo</p>
