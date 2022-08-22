@@ -13,7 +13,11 @@ const SignIn = () => {
     e.preventDefault();
     try {
       await logIn(email, password);
-      navigate("/regis");
+    if(email === "admin@fikunklab.com"){
+      navigate("/admin");
+    } else {
+      navigate("/regis")
+    }
     } catch (error) {
       console.log(error);
     }

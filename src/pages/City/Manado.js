@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import { onValue, ref, update } from "firebase/database";
-import { db, auth } from "../../firebase";
+import { db } from "../../firebase";
 
 const Manado = () => {
-  let [status, setStatus] = useState("Approved");
   const klik = (id) => {
-    console.log("test", id);
-    setStatus("Done");
-    update(ref(db, `users/Manado/${auth.currentUser.uid}`), {
+    update(ref(db, `users/Manado/${id}`), {
       approval: "true",
     });
     getValues();
@@ -63,7 +60,6 @@ const Manado = () => {
           </thead>
           <tbody className="text-black text-center">
             {data.tableData.map((item, index) => {
-              console.log("test", item);
               return (
                 <tr key={item} className="bg-white cursor-pointer border-b-2 border-gray-300">
                   <td className="py-3 px-6 border-r-2">{index + 1}</td>
