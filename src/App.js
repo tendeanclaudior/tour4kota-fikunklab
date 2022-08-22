@@ -2,6 +2,7 @@ import SignIn from "./pages/SignIn";
 import { Routes, Route } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 import { AuthContextProvider } from "./context/AuthContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 import Registration from "./pages/Registration";
 import LastPage from "./pages/LastPage";
 import Approval from "./pages/Approval";
@@ -20,17 +21,55 @@ function App() {
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/regis" element={<Registration />} />
-          <Route path="/lastpage" element={<LastPage />} />
-          <Route path="/approval" element={<Approval />} />
-          <Route path="/scan" element={<Scan />} />
-          <Route path="/ticket" element={<Ticket />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/regis" element={
+          <ProtectedRoute>
+            <Registration />
+          </ProtectedRoute>
+          } />
+          <Route path="/lastpage" element={
+          <ProtectedRoute>
+            <LastPage /> 
+          </ProtectedRoute>
+          } />
+          <Route path="/approval" element={
+            <ProtectedRoute>
+            <Approval />
+            </ProtectedRoute>
+          } />
+          <Route path="/scan" element={
+          <ProtectedRoute>
+            <Scan />
+          </ProtectedRoute>
+          } />
+          <Route path="/ticket" element={
+          <ProtectedRoute>
+            <Ticket />
+          </ProtectedRoute>
+          } />
+          <Route path="/admin" element={
+          <ProtectedRoute>
+            <Admin />
+          </ProtectedRoute>
+          } />
 
-          <Route path="/manado" element={<Manado />} />
-          <Route path="/gorontalo" element={<Gorontalo />} />
-          <Route path="/bitung" element={<Bitung />} />
-          <Route path="/kotamobagu" element={<Kotamobagu />} />
+          <Route path="/manado" element={
+         <ProtectedRoute>
+           <Manado />
+          </ProtectedRoute>
+          } />
+          <Route path="/gorontalo" element={<ProtectedRoute>
+            <Gorontalo />
+          </ProtectedRoute>
+          } />
+          <Route path="/bitung" element={
+          <ProtectedRoute>
+            <Bitung />
+          </ProtectedRoute>
+          } />
+          <Route path="/kotamobagu" element={<ProtectedRoute>
+            <Kotamobagu />
+            </ProtectedRoute>
+            } />
         </Routes>
       </AuthContextProvider>
     </>
