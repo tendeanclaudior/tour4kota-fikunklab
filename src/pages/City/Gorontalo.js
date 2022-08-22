@@ -4,13 +4,12 @@ import { onValue, ref, update } from "firebase/database";
 import { db, auth } from "../../firebase";
 
 const Gorontalo = () => {
-  let [status, setStatus] = useState("Approved")
-  const klik = () => {
-    setStatus("Done");
-    update(ref(db, `users/Gorontalo/${auth.currentUser.uid}`), {
+  const klik = (id) => {
+    update(ref(db, `users/Gorontalo/${id}`), {
       approval: "true",
     });
-  }
+    getValues();
+  };
 
   const [data, setData] = useState({
     tableData: [],
@@ -73,7 +72,7 @@ const Gorontalo = () => {
                   <td className="py-3 px-6">{item.data.sosmed}</td>
                   <td className="py-3 px-6">{item.data.lokasi}</td>
                   <td className="py-3 px-6">
-                    <button onClick={klik} className="bg-green-400 hover:bg-green-200 px-2 py-2 mr-3 rounded-xl font-semibold uppercase">{item.data.approval}</button>
+                    <button onClick={() => klik(item.key)} className="bg-green-400 hover:bg-green-200 px-2 py-2 mr-3 rounded-xl font-semibold uppercase">{item.data.approval}</button>
                   </td>
                 </tr>
               );
