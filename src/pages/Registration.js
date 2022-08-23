@@ -26,7 +26,6 @@ const Registration = () => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     setBaseImage(base64);
-    console.log("base64", base64);
   };
 
   const convertBase64 = (file) => {
@@ -44,37 +43,22 @@ const Registration = () => {
   };
 
   const onSubmit = (e) => {
-    let status = true;
-    let a = 0;
-
     if (name.length === 0) {
       setErrorInput(true);
-      a = 1;
-      status = false;
     }
     if (wa.length === 0) {
       setErrorInput(true);
-      a = 1;
-      status = false;
     }
     if (lokasi.length === 0) {
       setErrorInput(true);
-      a = 1;
-      status = false;
     }
     if (sosmed.length === 0) {
       setErrorInput(true);
-      a = 1;
-      status = false;
     }
     if (pesan.length === 0) {
       setErrorInput(true);
-      a = 1;
-      status = false;
     }
     if (lokasi === "Manado") {
-      status = true;
-      console.log("status", status);
       e.preventDefault();
       update(ref(db, `users/Manado/${auth.currentUser.uid}`), {
         nama: name,
@@ -89,8 +73,6 @@ const Registration = () => {
       navigate("/approval");
     }
     if (lokasi === "Kotamobagu") {
-      status = true;
-      console.log("status", status);
       e.preventDefault();
       update(ref(db, `users/Kotamobagu/${auth.currentUser.uid}`), {
         nama: name,
@@ -105,8 +87,6 @@ const Registration = () => {
       navigate("/approval");
     }
     if (lokasi === "Gorontalo") {
-      status = true;
-      console.log("status", status);
       e.preventDefault();
       update(ref(db, `users/Gorontalo/${auth.currentUser.uid}`), {
         nama: name,
@@ -121,8 +101,6 @@ const Registration = () => {
       navigate("/approval");
     }
     if (lokasi === "Bitung") {
-      status = true;
-      console.log("status", status);
       e.preventDefault();
       update(ref(db, `users/Bitung/${auth.currentUser.uid}`), {
         nama: name,
@@ -145,36 +123,30 @@ const Registration = () => {
       const rootReference = ref(database);
       const dbGet = await get(child(rootReference, `users/Manado/${auth.currentUser.uid}/doneRegis`));
       let dbValue = dbGet.val();
-      console.log("test1:", dbValue);
       if (dbValue) {
         navigate("/approval");
       }
-      if (dbValue != true) {
+      if (dbValue !== true) {
         const dbGet = await get(child(rootReference, `users/Kotamobagu/${auth.currentUser.uid}/doneRegis`));
         dbValue = dbGet.val();
-        console.log("test2:", dbValue);
         if (dbValue) {
           navigate("/approval");
         }
       }
-      if (dbValue != true) {
+      if (dbValue !== true) {
         const dbGet = await get(child(rootReference, `users/Bitung/${auth.currentUser.uid}/doneRegis`));
         dbValue = dbGet.val();
-        console.log("test3:", dbValue);
         if (dbValue) {
           navigate("/approval");
         }
       }
-      if (dbValue != true) {
+      if (dbValue !== true) {
         const dbGet = await get(child(rootReference, `users/Gorontalo/${auth.currentUser.uid}/doneRegis`));
         dbValue = dbGet.val();
-        console.log("test4:", dbValue);
         if (dbValue) {
           navigate("/approval");
         }
       }
-      console.log("test", dbValue);
-      console.log("uid :", auth.currentUser.uid);
       if (dbValue) {
         navigate("/approval");
       }

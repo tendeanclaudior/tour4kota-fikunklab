@@ -17,22 +17,18 @@ const Approval = () => {
       const rootReference = ref(database);
       const dbGet = await get(child(rootReference, `users/Kotamobagu/${auth.currentUser.uid}`));
       let dbValue = dbGet.val();
-      console.log("test:", dbValue)
-      
-      if(dbValue == null){
+
+      if (dbValue == null) {
         const dbGet = await get(child(rootReference, `users/Manado/${auth.currentUser.uid}`));
         dbValue = dbGet.val();
-        console.log("test2:", dbValue);
       }
-      if(dbValue == null){
+      if (dbValue == null) {
         const dbGet = await get(child(rootReference, `users/Bitung/${auth.currentUser.uid}`));
         dbValue = dbGet.val();
-        console.log("test2:", dbValue);
       }
-      if(dbValue == null){
+      if (dbValue == null) {
         const dbGet = await get(child(rootReference, `users/Gorontalo/${auth.currentUser.uid}`));
         dbValue = dbGet.val();
-        console.log("test2:", dbValue);
       }
 
       snaphsot.current = dbValue;

@@ -13,13 +13,14 @@ const SignIn = () => {
     e.preventDefault();
     try {
       await logIn(email, password);
-    if(email === "admin@fikunklab.com"){
-      navigate("/admin");
-    } else {
-      navigate("/regis")
-    }
+      if (email === "admin@fikunklab.com") {
+        navigate("/admin");
+      } else {
+        navigate("/regis");
+      }
     } catch (error) {
       console.log(error);
+      alert("Email atau Password anda salah");
     }
   };
 
@@ -46,6 +47,9 @@ const SignIn = () => {
               <h2 className="text-[10px] font-poppins font-medium text-[#FF0000] underline cursor-pointer">Sign up</h2>
             </Link>
           </div>
+          <Link to="/forgetpass">
+            <p className="text-[#FF0000] pt-2 text-[15px] underline">Forget Password</p>
+          </Link>
         </div>
       </div>
     </div>

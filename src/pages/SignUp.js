@@ -28,9 +28,15 @@ const SignUp = () => {
           <form onSubmit={handleSubmit}>
             <h1 className="font-poppins font-medium text-[11px]">Email</h1>
             <input onChange={(e) => setEmail(e.target.value)} className="w-[186px] border-[#000000] text-black border-b-2 pl-1 text-[10px]" placeholder="Tulis email anda" />
+            <p className="text-[8px]">
+              Masukan email yang terdaftar pada <span className="text-red-600 font-semibold">G-MAIL</span>{" "}
+            </p>
             <div className="h-[15px]"></div>
             <h1 className="font-poppins font-medium text-[11px]">Password</h1>
             <input onChange={(e) => setPassword(e.target.value)} type="password" className="w-[186px] border-[#000000] text-black border-b-2 pl-1 text-[10px]" placeholder="Tulis password anda" />
+            <p className="text-[8px]">
+              Masukan password minimal <span className="text-red-600 font-semibold">6 karakter</span>{" "}
+            </p>
             <div className="h-[50px]"></div>
             <div className="w-full flex justify-center">
               <button className="h-[24px] w-[80px] px-[10px] bg-[#4B4C51] rounded-[7px] flex justify-center items-center cursor-pointer text-[13px] font-poppins font-medium text-white">Sign Up</button>
